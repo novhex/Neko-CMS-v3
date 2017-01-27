@@ -15,6 +15,8 @@
     return view('welcome');
 });*/
 
+Auth::routes();
+Route::get('/home', 'HomeController@index');
 
 Route::get('/','HomeController@index');
 Route::get('/search','HomeController@search');
@@ -24,17 +26,16 @@ Route::get('/category/{category}','HomeController@category');
 
 
 Route::get('/admin','AdminController@index');
-Route::get('/admin/logout','AdminController@logout');
-Route::get('/admin/dashboard','AdminController@dashboard');
-Route::get('/admin/create-post','AdminController@create_post');
-Route::get('/admin/all-posts','AdminController@all_post');
-Route::get('/admin/add-page','AdminController@add_page');
-Route::get('/admin/edit-post/{id}','AdminController@edit_post');
-Route::post('/admin/auth','AdminController@auth');
+Route::get('/admin/dashboard','AdminController@dashboard')->middleware('auth');
+Route::get('/admin/create-post','AdminController@create_post')->middleware('auth');
+Route::get('/admin/all-posts','AdminController@all_post')->middleware('auth');
+Route::get('/admin/add-page','AdminController@add_page')->middleware('auth');
+Route::get('/admin/edit-post/{id}','AdminController@edit_post')->middleware('auth');
+Route::post('/admin/submit-post','AdminController@submit_post')->middleware('auth');
+Route::post('/admin/submit-page','AdminController@submit_page')->middleware('auth');
+Route::post('/admin/update-post','AdminController@update_post')->middleware('auth');
 
-Route::post('/admin/submit-post','AdminController@submit_post');
-Route::post('/admin/submit-page','AdminController@submit_page');
-Route::post('/admin/update-post','AdminController@update_post');
+
 
 
 

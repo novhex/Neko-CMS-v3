@@ -203,7 +203,11 @@
                                         <li class="divider"></li>
 
                                         <li>
-                                            <a href="{{url('admin/logout')}}"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                            <a href="{{url('/logout')}}"   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -222,7 +226,7 @@
                                     <img src="{{url('dashboard/img/avatar04.png')}}" class="img-circle" alt="User Image" />
                                 </div>
                                 <div class="pull-left info">
-                                    <p>Hello, {{ucfirst(session('userlogged'))}}</p>
+                                    <p>Hello, {{ Auth::user()->name }}</p>
 
                                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                                 </div>
@@ -251,6 +255,13 @@
                                     <a href="{{url('admin/add-page')}}">
                                         <i class="fa fa-book"></i> <span>Add New Page</span>
                                     </a>
+                                </li>
+
+                                <li>
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                            <a href="{{url('/logout')}}"   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-ban"></i> Logout</a>
                                 </li>
 
                             </ul>

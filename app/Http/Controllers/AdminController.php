@@ -10,47 +10,33 @@ use Validator;
 
 use DB;
 
+use Auth;
+
+
 class AdminController extends Controller
 {
     //
 
+    protected $redirectTo ='/admin/dashboard';
+
 
     public function __construct(Request $req){
+
+        $this->middleware('auth');
 
     }
 
     public function index(Request $req){
-
-        if($req->session()->has('userlogged')==FALSE){
-
-            $page_title = 'Site Administrator Login';
-
-            $css = array
-            (
-                url('twitterbs/css/bootstrap.min.css'),
-                url('font-awesome/css/font-awesome.min.css')
-            );
-
-            $javascripts = array
-            (
-                url('twitterbs/js/jquery-1.10.2.min.js'),
-                url('twitterbs/js/bootstrap.min.js'),
-                url('twitterbs/js/jquery.ui.shake.js')
-            );
-
-            return View('admin.loginpage',compact('page_title','javascripts','css'));
-
+        
+        if(Auth::check()){
+            return redirect('/admin/dashboard');
         }else{
-
-            return redirect('admin/dashboard/');
-
+            return redirect('/login');
         }
 
     }
 
     public function add_page(Request $req){
-
-         if($req->session()->has('userlogged')==TRUE){
 
             $page_title = 'Admin Dashboard - Add Page';
 
@@ -79,16 +65,11 @@ class AdminController extends Controller
 
             return View('admin.addpage',compact('page_title','javascripts','css','pages'));
 
-        }else{
-            $req->session()->flash('not_logged','Please Login. ');
-            return redirect('admin/');
-        }
-
     }
 
     public function all_post(Request $req){
 
-        if($req->session()->has('userlogged')==TRUE){
+        
 
             $page_title = 'Admin Dashboard - All Posts';
 
@@ -115,64 +96,20 @@ class AdminController extends Controller
 
             $posts = DB::table('posts')
             ->join('page_subcategories', 'posts.post_parent_subcategID', '=', 'page_subcategories.page_subcatID')
-            ->join('users','posts.post_author','=','users.usrsID')
+            ->join('users','posts.post_author','=','users.id')
             ->get();
 
             return View('admin.allpost',compact('page_title','javascripts','css','posts'));
 
-        }else{
-            $req->session()->flash('not_logged','Please Login. ');
-            return redirect('admin/');
-        }
+     
 
     }
 
-   public function auth(Request $req){
-
-      $validator = Validator::make($req->all(), [
-            'username' => 'required',
-            'password'=>'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('admin')
-                ->withInput()
-                ->withErrors($validator);
-        }else{
-        	$username_existence = DB::table('users')
-            ->where('usrs_username',$req->input('username'))
-            ->value('usrs_username');
-
-        	if($username_existence!=NULL){
-
-        		$userpass = DB::table('users')
-                ->where('usrs_username',$req->input('username'))
-                ->value('usrs_pw');
-
-        		if(password_verify($req->input('password'),trim($userpass))){
-
-        			$req->session()
-                    ->put('userlogged',$req->input('username'));
-        			return redirect('admin/dashboard/');
-
-        		}else{
-        			$req->session()
-                    ->flash('auth_failed','Invalid Username or Password. ');
-        			return redirect('admin/');
-        		}
-
-        	}
-        	else{
-        			$req->session()->flash('auth_failed','Invalid Username or Password. ');
-        			return redirect('admin/');
-        	}
-        }
-
-    }
+ 
 
     public function create_post(Request $req){
 
-        if($req->session()->has('userlogged')==TRUE){
+        
 
             $page_title = 'Admin Dashboard - Create Post';
 
@@ -206,10 +143,7 @@ class AdminController extends Controller
 
             return View('admin.createpost',compact('page_title','javascripts','css','categories'));
 
-        }else{
-            $req->session()->flash('not_logged','Please Login. ');
-            return redirect('admin/');
-        }
+     
 
     }
 
@@ -217,7 +151,7 @@ class AdminController extends Controller
      public function dashboard(Request $req){
 
 
-        if($req->session()->has('userlogged')==TRUE){
+        
             $page_title = 'Admin Dashboard - Home';
 
             $css = array
@@ -236,16 +170,13 @@ class AdminController extends Controller
                 
             );
             return View('admin.dashboard',compact('page_title','css','javascripts'));   
-        }else{
-            $req->session()->flash('not_logged','Please Login. ');
-            return redirect('admin/');
-        }
+    
         
     }
 
     public function edit_post($post_id,Request $req){
 
-         if($req->session()->has('userlogged')==TRUE){
+         
 
             $page_title = 'Admin Dashboard - Editing Post';
 
@@ -283,21 +214,9 @@ class AdminController extends Controller
             return View('admin.editpost',compact('page_title','javascripts','css','categories','post_to_edit'));
 
 
-         }else{
-            $req->session()->flash('not_logged','Please Login. ');
-            return redirect('admin/');
-        }
+      
 
     }
-
-    public function logout(Request $req){
-    
-    		$req->session()->forget('userlogged');
-    		$req->session()->flush();
-   			return redirect('admin/');
-    	
-    }
-
 
     public function submit_page(Request $req){
 

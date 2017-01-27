@@ -35,7 +35,7 @@
                                           <tr>
                                               <td>{{$p->postID}}</td>
                                               <td>{{$p->post_title}}</td>
-                                              <td>{{$p->usrs_username}}</td>
+                                              <td>{{$p->name}}</td>
                                               <td>{{$p->page_subcat_name}}</td>
                                               <td>{{ date('F  j, Y - h:i:s:a',strtotime($p->date_published)) }}</td>
                                               <td>{{ $p->last_modified == '0000-00-00 00:00:00' ? 'No edit history yet' : date('F  j, Y - h:i:s:a',strtotime($p->last_modified)) }}</td>
