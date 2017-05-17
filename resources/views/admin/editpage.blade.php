@@ -2,13 +2,14 @@
 @extends('admin.dashboard_nav')
 @section('content')
 
+
  <aside class="right-side">
  <section class="content">
 
 
 <div class="row">
 
-			<form action="{{url('admin/submit-page')}}" method="POST" accept-charset="utf-8" >    
+			<form action="{{url('admin/update-page')}}" method="POST" accept-charset="utf-8" >    
 			    <div class="col-md-9">
 
 			@if (count($errors) > 0)
@@ -20,15 +21,18 @@
 			    </div>
 			@endif
 
-			         <section class="panel">
+			         <section class="panel panel-primary">
+
+			         @foreach ($page_to_edit as $error)
+
 			                  <header class="panel-heading">
 			                              <i class="fa fa-book"></i>
-			                                 Add Page
+			                                 Edit Page
 			                              </header>
 			                          <div class="panel-body">
 			                          {{csrf_field()}}
 			                              <label>* Page Name</label>
-			                              <input value="{{old('page_name')}}" style=" font-size: 25px;" type="text" name="page_name" class="form-control" />
+			                              <input value="" style=" font-size: 25px;" type="text" name="page_name" class="form-control" />
 			 							   <label>* Page Description</label>
 			 							   <textarea name="page_desc">{{old('page_desc')}}</textarea>
 			                                  
@@ -36,7 +40,7 @@
 			     </div>
 
 			     <div class="col-md-3">
-			     	         <section class="panel">
+			     	         <section class="panel panel-primary">
 			                  <header class="panel-heading">
 			                       <i class="fa fa-cog"></i>
 			                         Page Options
@@ -54,12 +58,16 @@
 			                    	<option value="{{$p->pageID}}">{{$p->page_name}}</option>	
 			                    	<?php endforeach; ?>
 			                    </select>
-			                    <button style="margin-top: 5px;" class="btn btn-success btn-block"><i class="fa fa-book"></i> Add New Page</button>
+			                    <button style="margin-top: 10px;" class="btn btn-success btn-block"><i class="fa fa-book"></i> Add New Page</button>
 			                    </div>
 			     </div>
 			</form>
+
+			@endforeach
       </section>
   </aside>
                
+
+
 
 @endsection

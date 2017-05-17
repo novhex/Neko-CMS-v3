@@ -17,9 +17,7 @@
 
               <!-- row end -->
                 </section><!-- /.content -->
-                <div class="footer-main">
-                    Copyright &copy NekoVel CMS {{ date('Y') }} &ndash; Dashboard Theme Director
-                </div>
+
             </aside><!-- /.right-side -->
 
         </div><!-- ./wrapper -->

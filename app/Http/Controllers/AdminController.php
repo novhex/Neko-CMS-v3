@@ -36,9 +36,9 @@ class AdminController extends Controller
 
     }
 
-    public function add_page(Request $req){
+    public function add_subpage(Request $req){
 
-            $page_title = 'Admin Dashboard - Add Page';
+            $page_title = 'Admin Dashboard - Add Subcategory Page';
 
             $css = array
             (
@@ -63,7 +63,38 @@ class AdminController extends Controller
 
             $pages = DB::table('pages')->get();
 
-            return View('admin.addpage',compact('page_title','javascripts','css','pages'));
+            return View('admin.addsubcategory',compact('page_title','javascripts','css','pages'));
+
+    }
+
+    public function all_pages(Request $req){
+
+            $page_title = 'Admin Dashboard - All Posts';
+
+            $css = array
+            (
+                url('twitterbs/css/bootstrap.min.css'),
+                url('dashboard/css/ionicons.min.css'),
+                url('dashboard/css/style.css'),
+                url('font-awesome/css/font-awesome.min.css'),
+                url('twitterbs/css/dataTables.css')
+            );
+
+            $javascripts = array
+            (
+                url('twitterbs/js/jquery-1.10.2.min.js'),
+                url('twitterbs/js/bootstrap.min.js'),
+                url('dashboard/js/app.js'),
+                url('twitterbs/js/select2.full.min.js'),
+                url('twitterbs/js/tinymce.min.js'),
+                url('twitterbs/js/dataTables.js'),
+                url('twitterbs/js/dtable-init.js')
+                
+            );
+
+        $pages = DB::table('pages')->get();
+
+        return view('admin.allpages',compact('page_title','javascripts','css','pages'));
 
     }
 
@@ -218,17 +249,53 @@ class AdminController extends Controller
 
     }
 
-    public function submit_page(Request $req){
+
+    public function edit_page($pageID,Request $req){
+
+        $page_title = 'Admin Dashboard - Editing Page';
+
+            $css = array
+            (
+                url('twitterbs/css/bootstrap.min.css'),
+                url('dashboard/css/ionicons.min.css'),
+                url('dashboard/css/style.css'),
+                url('font-awesome/css/font-awesome.min.css'),
+                url('twitterbs/css/select2.min.css'),
+                url('twitterbs/css/jquery.tagit.css'),
+                url('twitterbs/css/tagit.ui-zendesk.css')
+            );
+
+            $javascripts = array
+            (
+                url('twitterbs/js/jquery-1.10.2.min.js'),
+                url('twitterbs/js/bootstrap.min.js'),
+                url('dashboard/js/app.js'),
+                url('twitterbs/js/select2.full.min.js'),
+                url('twitterbs/js/tinymce.min.js'),
+                url('twitterbs/js/tinymce_init.js'),
+                url('twitterbs/js/jquery-ui.min.js'),
+                url('twitterbs/js/tag-it.js'),
+                url('twitterbs/js/backend.js')
+                
+                
+            );
+
+        $page_to_edit = DB::table('pages')->where('pages.pageID','=',$pageID)->get();
+        $categories = DB::table('page_subcategories')->get();
+
+        return View('admin.editpage',compact('page_title','javascripts','css','page_subcategories','page_to_edit'));
+
+    }
+
+    public function submit_subpage(Request $req){
 
         $validator = Validator::make($req->all(),[
                 'page_name'=>'required|min:5|max:255',
-                'page_desc'=>'required|min:10',
-                'is_published_page'=>'required',
                 'parent_page'=>'required'
             ]);
 
         if($validator->fails()){
-            return redirect('/admin/add-page')
+            return redirect('/admin/add-subpage')
             ->withInput()
             ->withErrors($validator);
         }else{

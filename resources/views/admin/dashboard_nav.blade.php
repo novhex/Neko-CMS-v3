@@ -247,13 +247,19 @@
 
                                 <li>
                                     <a href="{{url('admin/all-posts')}}">
-                                        <i class="fa fa-eye"></i> <span>View All Posts</span>
+                                        <i class="fa fa-newspaper-o"></i> <span>View All Posts</span>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="{{url('admin/add-page')}}">
-                                        <i class="fa fa-book"></i> <span>Add New Page</span>
+                                    <a href="{{url('admin/add-subpage')}}">
+                                        <i class="fa fa-book"></i> <span> Category Pages </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{url('admin/all-pages')}}">
+                                        <i class="fa fa-list-alt"></i> <span>View Parent Pages </span>
                                     </a>
                                 </li>
 

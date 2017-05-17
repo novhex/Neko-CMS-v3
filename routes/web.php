@@ -29,11 +29,13 @@ Route::get('/admin','AdminController@index');
 Route::get('/admin/dashboard','AdminController@dashboard')->middleware('auth');
 Route::get('/admin/create-post','AdminController@create_post')->middleware('auth');
 Route::get('/admin/all-posts','AdminController@all_post')->middleware('auth');
-Route::get('/admin/add-page','AdminController@add_page')->middleware('auth');
+Route::get('/admin/all-pages','AdminController@all_pages')->middleware('auth');
+Route::get('/admin/add-subpage','AdminController@add_subpage')->middleware('auth');
 Route::get('/admin/edit-post/{id}','AdminController@edit_post')->middleware('auth');
 Route::post('/admin/submit-post','AdminController@submit_post')->middleware('auth');
-Route::post('/admin/submit-page','AdminController@submit_page')->middleware('auth');
+Route::post('/admin/submit-subpage','AdminController@submit_subpage')->middleware('auth');
 Route::post('/admin/update-post','AdminController@update_post')->middleware('auth');
+Route::get('admin/edit-page/{page}','AdminController@edit_page')->middleware('auth');
 
 
 

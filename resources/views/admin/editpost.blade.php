@@ -36,7 +36,7 @@ foreach($post_to_edit as $p){
     @endforeach
     </div>
 @endif
-         <section class="panel">
+         <section class="panel panel-primary">
                       <header class="panel-heading">
                               <i class="fa fa-edit"></i>
                                  Editing A Post
@@ -59,7 +59,7 @@ foreach($post_to_edit as $p){
 
                </div>
                <div class="col-md-3">
-               		         <section class="panel">
+               		         <section class="panel panel-primary">
                               <header class="panel-heading">
                               <i class="fa fa-cog"></i>
                                  Options
@@ -82,13 +82,13 @@ foreach($post_to_edit as $p){
 	                              	<option value="0">No</option>
                               </select>
 
-                                     <button style="margin-top: 5px;" type="submit" class="btn btn-success btn-block" name="btn_submit"><i class="fa fa-edit"></i> Update Post</button>
+                                     <button style="margin-top: 10px;" type="submit" class="btn btn-success btn-block" name="btn_submit"><i class="fa fa-edit"></i> Update Post</button>
                                      
                               </div>
               		 			</div>
 
                         <div class="col-md-3">
-                          <section class="panel">
+                          <section class="panel panel-primary">
                               <header class="panel-heading">
                               <i class="fa fa-tag"></i>
                                 Post Tags

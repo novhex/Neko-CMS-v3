@@ -15,7 +15,7 @@
     @endforeach
     </div>
 @endif
-         <section class="panel">
+         <section class="panel panel-primary">
                       <header class="panel-heading">
                               <i class="fa fa-pencil"></i>
                                  Create a Post
@@ -36,7 +36,7 @@
 
                </div>
                <div class="col-md-3">
-               		         <section class="panel">
+               		         <section class="panel panel-primary">
                               <header class="panel-heading">
                               <i class="fa fa-cog"></i>
                                  Options
@@ -59,13 +59,13 @@
 	                              	<option value="0">No</option>
                               </select>
 
-                                     <button style="margin-top: 5px;" type="submit" class="btn btn-success btn-block" name="btn_submit"><i class="fa fa-eye"></i> Publish Post</button>
+                                     <button style="margin-top: 10px;" type="submit" class="btn btn-success btn-block" name="btn_submit"><i class="fa fa-paper-plane-o"></i> Publish Post </button>
                                      
                               </div>
               		 			</div>
 
                         <div class="col-md-3">
-                          <section class="panel">
+                          <section class="panel panel-primary">
                               <header class="panel-heading">
                               <i class="fa fa-tag"></i>
                                 Post Tags
